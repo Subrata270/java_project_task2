@@ -1,0 +1,191 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+class Bank_account {
+    static void register() {
+        Scanner sc = new Scanner(System.in);
+        String name, user, password;
+        int account_number;
+        System.out.println("Enter your name");
+        name = sc.next();
+        System.out.println("Enter your user name");
+        user = sc.next();
+        System.out.println("Enter a password");
+        password = sc.next();
+        System.out.println("Enter account Number");
+        ATM.account_number = sc.nextLine();
+        System.out.println("REGISTRATION SUCCESSFULLY");
+        ATM.prompt();
+        while (true) {
+            Display(name);
+            int choice = sc.nextInt();
+            if (choice == 1) {
+                login(user,password);
+                break;
+            } else {
+                if (choice == 2) {
+                    System.exit(0);
+                } else {
+                    System.out.println("wrong value! Again Enter");
+                }
+            }
+        }
+    }
+
+    private static void Display(String name) {
+    }
+
+    static void display(String name) {}
+    static void login(String user, String password) {}
+}
+class Transaction
+{
+    static void withdraw() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Enter amount to withdraw");
+        int withdraw_cash = sc.nextInt();
+        if (withdraw_cash <= ATM.balance) {
+            ATM.balance = ATM.balance - withdraw_cash;
+            ATM.history.add(Integer.toString(withdraw_cash));
+            ATM.history.add("withdraw");
+            System.out.println("Amount" + withdraw_cash + "/-withdraw successfully");
+        } else {
+            System.out.println("less balance");
+        }
+    ATM.prompt();
+    }
+    static void deposit(){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter amount to deposit: ");
+        int deposit_cash=sc.nextInt();
+        ATM.updatebalance(deposit_cash);
+        ATM.history.add(Integer.toString(deposit_cash));
+        ATM.history.add(Integer.toString(deposit_cash));
+        System.out.println("Amount" + deposit_cash + "/-deposit successfully");
+        ATM.prompt();
+    }
+    static void transfer(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your receiving body: ");
+        String s=sc.nextLine();
+        System.out.println("Enter the account number of the receiving body");
+        int num=sc.nextInt();
+        System.out.println("Enter the amount to be transfer");
+        int transfer_cash=sc.nextInt();
+        if(transfer_cash<ATM.balance){
+            ATM.balance=ATM.balance-transfer_cash;
+            ATM.history.add("Amount transferred");
+            System.out.println("Amount" + transfer_cash + "/-transfer successfully");
+            System.out.println();
+        }
+        else{
+            System.out.println("less amount to be transfer");
+            System.out.println();
+        }
+    }
+}
+class check{
+    static void CheckTheBalance(){
+        System.out.println();
+        System.out.println("remaining balance in bank account");
+        System.out.println();
+        ATM.prompt();
+    }
+}
+class history{
+    static void transactionhistory(){
+        System.out.println();
+        System.out.println("Transaction History: ");
+        int k=0;
+        if(ATM.balance>0){
+            for(int i=0;i<(ATM.history.size()/2);i++)
+            {
+                for(int j=0;j<2;j++)
+                {
+                    System.out.println(ATM.history.get(k)+" ");
+                    k++;
+                }
+                System.out.println();
+
+            }
+        }
+        else{
+            System.out.println("Empty account");
+        }
+        ATM.prompt();
+    }
+}
+public class ATM {
+    public static String name;
+    public static int balance;
+    public static String account_number;
+    public static ArrayList<String> history=new ArrayList<String>();
+    private static Transaction transaction;
+
+    static void updatebalance(int deposit_cash)
+    {
+        balance=balance+deposit_cash;
+    }
+    static void showBalance()
+    {
+        System.out.println(balance);
+    }
+    public static void homepage(){
+        System.out.println();
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Welcome to the INTERFACE");
+        System.out.println();
+        System.out.println("select option");
+        System.out.println("1.register");
+        System.out.println("2.Exit");
+        System.out.println("Enter choice");
+        int choice =sc.nextInt();
+        if(choice==1){
+            Bank_account.register();
+        }
+        else{
+            if(choice==2)
+            {
+                System.exit(0);
+            }
+            else{
+                System.out.println("select a value only from the given option");
+                homepage();
+            }
+        }
+    }
+    public static void prompt() {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Hello"+ATM.name);
+        System.out.println();
+        System.out.println("Select from these below option");
+        System.out.println("1.withdraw");
+        System.out.println("2.deposit");
+        System.out.println("3.transfer");
+        System.out.println("4.check balance");
+        System.out.println("5.Transaction History");
+        System.out.println("Exit");
+        System.out.println("Enter your choice: ");
+        int choice=sc.nextInt();
+        switch(choice){
+        case 1:
+            transaction.withdraw();
+        case 2:
+            transaction.deposit();
+        case 3:
+            transaction.transfer();
+        case 4:
+            check.CheckTheBalance();
+        case 5:
+            history.lastIndexOf(1);
+        case 6:
+            System.exit(0);
+
+        }
+    }
+
+    public static void main(String[] args) {
+        homepage();
+
+    }
+}
